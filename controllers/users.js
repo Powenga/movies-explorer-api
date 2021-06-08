@@ -1,6 +1,6 @@
-const NotFoundError = require('../errors/not-found-err');
 const User = require('../models/user');
-const { BadRequestError } = require('../errors/bad-request-err');
+const NotFoundError = require('../errors/not-found-err');
+const BadRequestError = require('../errors/bad-request-err');
 const {
   USER_NOT_FOUND_MESSAGE,
   USER_INVALID_ID_MESSAGE,
