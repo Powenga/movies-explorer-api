@@ -4,12 +4,15 @@ const {
   PORT = 3000,
   MONGO_URL = 'mongodb://localhost:27017/movExplorerDB',
   ORIGIN = 'http://localhost:3001',
-  SECRET_KEY = 'some-secret-key',
+  JWT_TOKEN,
 } = process.env;
+
+const DEV_SECRET_KEY = 'some-secret-key';
 
 module.exports = {
   PORT,
   MONGO_URL,
   ORIGIN,
-  SECRET_KEY,
+  JWT_TOKEN,
+  DEV_SECRET_KEY,
 };
