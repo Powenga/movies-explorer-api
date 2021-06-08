@@ -99,11 +99,11 @@ module.exports.deleteMovie = (req, res, next) => {
     .orFail(new NotFoundError(MOVIE_NOT_FOUND_MESSAGE))
     .then((movie) => {
       if (movie.owner._id.toString() !== req.user._id) {
-        next(new ForbiddenError(USER_FORBITTEN_MESSAGE));
+        throw new ForbiddenError(USER_FORBITTEN_MESSAGE);
       }
       return Promise.resolve(movie);
     })
-    .then((movie) => Movie.remove(movie))
+    .then((movie) => Movie.deleteOne(movie))
     .then(() => res.send({ message: MOVIE_DELETED_MESSAGE }))
     .catch((err) => {
       if (err.name === MONGOOSE_TYPE_ERROR) {

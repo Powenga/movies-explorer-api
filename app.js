@@ -33,7 +33,7 @@ app.use(router);
 
 app.use(errorLogger);
 
-//celebrate errors
+// celebrate errors
 
 app.use(errorHandler);
 
