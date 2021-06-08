@@ -1,5 +1,6 @@
 const validator = require('validator');
 const mongoose = require('mongoose');
+const { USER_INVALID_EMAIL_MESSAGE } = require('../constants');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -9,7 +10,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: (value) => validator.isEmail(value),
-      message: 'Пераданный email не валиден.',
+      message: USER_INVALID_EMAIL_MESSAGE,
     },
   },
   password: {

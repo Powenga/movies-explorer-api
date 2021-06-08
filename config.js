@@ -8,6 +8,8 @@ const {
 } = process.env;
 
 const DEV_SECRET_KEY = 'some-secret-key';
+const MONGO_DUPLICATE_ERROR_CODE = 11000;
+const SALT_ROUNDS = 10;
 
 module.exports = {
   PORT,
@@ -15,4 +17,6 @@ module.exports = {
   ORIGIN,
   JWT_TOKEN,
   DEV_SECRET_KEY,
+  MONGO_DUPLICATE_ERROR_CODE,
+  SALT_ROUNDS,
 };
