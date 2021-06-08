@@ -5,10 +5,10 @@ const {
   MONGO_URL = 'mongodb://localhost:27017/movExplorerDB',
   ORIGIN = 'http://localhost:3001',
   JWT_TOKEN,
+  NODE_ENV,
 } = process.env;
 
 const DEV_SECRET_KEY = 'some-secret-key';
-const MONGO_DUPLICATE_ERROR_CODE = 11000;
 const SALT_ROUNDS = 10;
 
 module.exports = {
@@ -17,6 +17,6 @@ module.exports = {
   ORIGIN,
   JWT_TOKEN,
   DEV_SECRET_KEY,
-  MONGO_DUPLICATE_ERROR_CODE,
   SALT_ROUNDS,
+  NODE_ENV,
 };

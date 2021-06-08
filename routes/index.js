@@ -1,12 +1,13 @@
 const router = require('express').Router();
 
-const NotFoundError = require('../errors/not-found-err');
+const { createUser, login } = require('../controllers/users');
 const { movieRouter } = require('./movies');
 const { userRouter } = require('./users');
+const NotFoundError = require('../errors/not-found-err');
 //Валидация
 
-// router.post('/signup', );
-// router.post('/signin', );
+router.post('/signup', createUser);
+router.post('/signin', login);
 
 // router.use(auth());
 
