@@ -13,6 +13,7 @@ const {
   USER_ALREADY_EXIST_MESSAGE,
   USER_UNAUTHORIZED_MESSAGE,
   USER_LOGIN_MESSAGE,
+  USER_LOGOUT_MESSAGE,
   MONGOOSE_TYPE_ERROR,
   MONGOOSE_VALIDATION_ERROR,
   MONGO_DUPLICATE_ERROR_CODE,
@@ -78,6 +79,20 @@ module.exports.login = (req, res, next) => {
           .send({ message: USER_LOGIN_MESSAGE });
       })
       .catch(next);
+  }
+};
+
+module.exports.logout = (req, res, next) => {
+  try {
+    res.cookie('jwt', '',
+      {
+        maxAge: 0,
+        httpOnly: true,
+        sameSite: true,
+      })
+      .send({ message: USER_LOGOUT_MESSAGE });
+  } catch (err) {
+    next(err);
   }
 };
 

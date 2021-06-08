@@ -7,6 +7,7 @@ const USER_FORBITTEN_MESSAGE = 'Недостаточно прав!';
 const USER_ALREADY_EXIST_MESSAGE = 'Пользователь с таким email уже существует!';
 const USER_UNAUTHORIZED_MESSAGE = 'Неправильные email или пароль!';
 const USER_LOGIN_MESSAGE = 'Вход выполнен!';
+const USER_LOGOUT_MESSAGE = 'Выход выполнен!';
 
 const UNAUTHORIZED_MESSAGE = 'Необходима авторизация!';
 
@@ -33,6 +34,7 @@ module.exports = {
   USER_ALREADY_EXIST_MESSAGE,
   USER_UNAUTHORIZED_MESSAGE,
   USER_LOGIN_MESSAGE,
+  USER_LOGOUT_MESSAGE,
   UNAUTHORIZED_MESSAGE,
   SAVED_MOVIES_NOT_FOUND_MESSAGE,
   MOVIE_DATA_IS_MISSING_MESSAGE,
