@@ -1,16 +1,17 @@
 const router = require('express').Router();
 
-const { NotFoundError } = require('../errors/not-found-err');
+const NotFoundError = require('../errors/not-found-err');
+const { movieRouter } = require('./movies');
 const { userRouter } = require('./users');
 //Валидация
 
-router.post('/signup', );
-router.post('/signin', );
+// router.post('/signup', );
+// router.post('/signin', );
 
-router.use(auth());
+// router.use(auth());
 
 router.use('/users', userRouter);
-router.use('/movies', );
+router.use('/movies', movieRouter);
 
 router.use((req, res, next) => {
   next(new NotFoundError('Запрашиваемый ресурс не найден!'));

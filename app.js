@@ -27,15 +27,15 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
 
-app.use(requestLogger());
+app.use(requestLogger);
 
 app.use(router);
 
-app.use(errorLogger());
+app.use(errorLogger);
 
 //celebrate errors
 
-app.use(errorHandler());
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
