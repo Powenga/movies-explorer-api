@@ -8,10 +8,14 @@ const USER_ALREADY_EXIST_MESSAGE = 'Пользователь с таким email
 const USER_UNAUTHORIZED_MESSAGE = 'Неправильные email или пароль!';
 const USER_LOGIN_MESSAGE = 'Вход выполнен!';
 
+const UNAUTHORIZED_MESSAGE = 'Необходима авторизация!';
+
 const SAVED_MOVIES_NOT_FOUND_MESSAGE = 'Сохраненные фильмы не найдены!';
 const MOVIE_DATA_IS_MISSING_MESSAGE = 'Необходимые данные фильма не переданы!';
 const MOVIE_INVALID_DATA_MESSAGE = 'Данные фильма не валидны!';
 const MOVIE_NOT_FOUND_MESSAGE = 'Фильм не найден!';
+const MOVIE_ALREADY_SAVED_MESSAGE = 'Фильм уже добавлен!';
+const MOVIE_DELETED_MESSAGE = 'Фильм удален!';
 
 const INVALID_URL_MESSAGE = 'Переданный URL не валиден!';
 
@@ -29,6 +33,7 @@ module.exports = {
   USER_ALREADY_EXIST_MESSAGE,
   USER_UNAUTHORIZED_MESSAGE,
   USER_LOGIN_MESSAGE,
+  UNAUTHORIZED_MESSAGE,
   SAVED_MOVIES_NOT_FOUND_MESSAGE,
   MOVIE_DATA_IS_MISSING_MESSAGE,
   MOVIE_INVALID_DATA_MESSAGE,
@@ -37,4 +42,6 @@ module.exports = {
   MONGOOSE_TYPE_ERROR,
   MONGOOSE_VALIDATION_ERROR,
   MONGO_DUPLICATE_ERROR_CODE,
+  MOVIE_ALREADY_SAVED_MESSAGE,
+  MOVIE_DELETED_MESSAGE,
 };
