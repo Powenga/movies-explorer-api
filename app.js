@@ -8,6 +8,7 @@ const { PORT, MONGO_URL, ORIGIN } = require('./config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes');
 const { errorHandler } = require('./middlewares/error-handler');
+const { limiter } = require('./middlewares/limiter');
 
 const app = express();
 
@@ -30,6 +31,9 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use(requestLogger);
+
+app.set('trust proxy', 1);
+app.use(limiter);
 
 app.use(router);
 
