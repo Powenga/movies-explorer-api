@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const auth = require('../middlewares/auth');
-
+const { createUserValidator, loginValidator } = require('../middlewares/validator');
 const { createUser, login, logout } = require('../controllers/users');
 const { movieRouter } = require('./movies');
 const { userRouter } = require('./users');
@@ -8,8 +8,8 @@ const NotFoundError = require('../errors/not-found-err');
 
 // Валидация
 
-router.post('/signup', createUser);
-router.post('/signin', login);
+router.post('/signup', createUserValidator, createUser);
+router.post('/signin', loginValidator, login);
 
 router.use(auth);
 

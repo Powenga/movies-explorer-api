@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const { errors } = require('celebrate');
 const { PORT, MONGO_URL, ORIGIN } = require('./config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes');
@@ -33,9 +34,7 @@ app.use(requestLogger);
 app.use(router);
 
 app.use(errorLogger);
-
-// celebrate errors
-
+app.use(errors());
 app.use(errorHandler);
 
 app.listen(PORT, () => {
