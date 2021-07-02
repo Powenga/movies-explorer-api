@@ -12,7 +12,6 @@ const {
   USER_INVALID_DATA_MESSAGE,
   USER_ALREADY_EXIST_MESSAGE,
   USER_UNAUTHORIZED_MESSAGE,
-  USER_LOGIN_MESSAGE,
   USER_LOGOUT_MESSAGE,
   MONGOOSE_TYPE_ERROR,
   MONGOOSE_VALIDATION_ERROR,
@@ -52,7 +51,7 @@ module.exports.createUser = (req, res, next) => {
             httpOnly: true,
             sameSite: true,
           })
-          .status(201).send({ email, name });
+          .status(201).send({ email, name, userId: user._id });
       })
       .catch((err) => {
         if (err.name === MONGOOSE_TYPE_ERROR || err.name === MONGOOSE_VALIDATION_ERROR) {
@@ -89,7 +88,7 @@ module.exports.login = (req, res, next) => {
             httpOnly: true,
             sameSite: true,
           })
-          .send({ message: USER_LOGIN_MESSAGE });
+          .send({ name: user.name, email: user.email, userId: user._id });
       })
       .catch(next);
   }
@@ -113,7 +112,7 @@ module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(new NotFoundError(USER_NOT_FOUND_MESSAGE))
     .then((user) => {
-      res.send(user);
+      res.send({ name: user.name, email: user.email, userId: user._id });
     })
     .catch((err) => {
       if (err.name === MONGOOSE_TYPE_ERROR) {
