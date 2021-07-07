@@ -138,7 +138,7 @@ module.exports.updateUser = (req, res, next) => {
     )
       .orFail(new NotFoundError(USER_NOT_FOUND_MESSAGE))
       .then((user) => {
-        res.send(user);
+        res.send({ name: user.name, email: user.email, userId: user._id });
       })
       .catch((err) => {
         if (err.name === MONGOOSE_TYPE_ERROR || err.name === MONGOOSE_VALIDATION_ERROR) {
