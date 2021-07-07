@@ -86,7 +86,7 @@ module.exports.saveMovieValidator = celebrate({
       }),
       image: Joi.string().required()
         .custom((value, helpers) => {
-          if (!validator.isURL(value)) {
+          if (!validator.isURL(value, { require_protocol: false, require_host: false })) {
             return helpers.message('Поле "постер" должно быть ссылкой!');
           }
           return value;
@@ -107,7 +107,7 @@ module.exports.saveMovieValidator = celebrate({
         }),
       thumbnail: Joi.string().required()
         .custom((value, helpers) => {
-          if (!validator.isURL(value)) {
+          if (!validator.isURL(value, { require_protocol: false, require_host: false })) {
             return helpers.message('Поле "миниатюра" должно быть ссылкой!');
           }
           return value;

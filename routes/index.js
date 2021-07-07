@@ -15,7 +15,7 @@ router.use(auth);
 
 router.use('/users', userRouter);
 router.use('/movies', movieRouter);
-router.post('/signout', logout);
+router.get('/signout', logout);
 
 router.use((req, res, next) => {
   next(new NotFoundError('Запрашиваемый ресурс не найден!'));

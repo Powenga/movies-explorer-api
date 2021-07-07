@@ -12,7 +12,6 @@ const {
   USER_INVALID_DATA_MESSAGE,
   USER_ALREADY_EXIST_MESSAGE,
   USER_UNAUTHORIZED_MESSAGE,
-  USER_LOGIN_MESSAGE,
   USER_LOGOUT_MESSAGE,
   MONGOOSE_TYPE_ERROR,
   MONGOOSE_VALIDATION_ERROR,
@@ -26,6 +25,16 @@ const {
   NODE_ENV,
 } = require('../config');
 
+function signToken(user) {
+  return jwt.sign(
+    { _id: user._id },
+    NODE_ENV === 'production' ? JWT_TOKEN : DEV_SECRET_KEY,
+    {
+      expiresIn: '7d',
+    },
+  );
+}
+
 module.exports.createUser = (req, res, next) => {
   const { email, password, name } = req.body;
   if (!email || !name || !password) {
@@ -34,7 +43,16 @@ module.exports.createUser = (req, res, next) => {
     bcrypt
       .hash(password, SALT_ROUNDS)
       .then((hash) => User.create({ email, password: hash, name }))
-      .then(() => res.status(201).send({ email, name }))
+      .then((user) => {
+        const token = signToken(user);
+        res
+          .cookie('jwt', token, {
+            maxAge: 3600000 * 24 * 7,
+            httpOnly: true,
+            sameSite: true,
+          })
+          .status(201).send({ email, name, userId: user._id });
+      })
       .catch((err) => {
         if (err.name === MONGOOSE_TYPE_ERROR || err.name === MONGOOSE_VALIDATION_ERROR) {
           next(new BadRequestError(USER_INVALID_DATA_MESSAGE));
@@ -63,20 +81,14 @@ module.exports.login = (req, res, next) => {
           return user;
         }))
       .then((user) => {
-        const token = jwt.sign(
-          { _id: user._id },
-          NODE_ENV === 'production' ? JWT_TOKEN : DEV_SECRET_KEY,
-          {
-            expiresIn: '7d',
-          },
-        );
+        const token = signToken(user);
         res
           .cookie('jwt', token, {
             maxAge: 3600000 * 24 * 7,
             httpOnly: true,
             sameSite: true,
           })
-          .send({ message: USER_LOGIN_MESSAGE });
+          .send({ name: user.name, email: user.email, userId: user._id });
       })
       .catch(next);
   }
@@ -100,7 +112,7 @@ module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(new NotFoundError(USER_NOT_FOUND_MESSAGE))
     .then((user) => {
-      res.send(user);
+      res.send({ name: user.name, email: user.email, userId: user._id });
     })
     .catch((err) => {
       if (err.name === MONGOOSE_TYPE_ERROR) {
@@ -126,7 +138,7 @@ module.exports.updateUser = (req, res, next) => {
     )
       .orFail(new NotFoundError(USER_NOT_FOUND_MESSAGE))
       .then((user) => {
-        res.send(user);
+        res.send({ name: user.name, email: user.email, userId: user._id });
       })
       .catch((err) => {
         if (err.name === MONGOOSE_TYPE_ERROR || err.name === MONGOOSE_VALIDATION_ERROR) {

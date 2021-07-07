@@ -1,9 +1,9 @@
 require('dotenv').config();
 
 const {
-  PORT = 3000,
+  PORT = 3001,
   MONGO_URL = 'mongodb://localhost:27017/movExplorerDB',
-  ORIGIN = 'http://localhost:3001',
+  ORIGIN = 'http://localhost:3000',
   JWT_TOKEN,
   NODE_ENV,
 } = process.env;
